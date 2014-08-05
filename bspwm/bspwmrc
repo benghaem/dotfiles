@@ -1,0 +1,31 @@
+#! /bin/sh
+
+bspc config border_width        2
+bspc config window_gap         12
+
+bspc config split_ratio         0.52
+bspc config borderless_monocle  true
+bspc config gapless_monocle     true
+
+bspc monitor eDP1 -d 1 2 3 4 5
+bspc monitor HDMI1 -d 6 7 8 9 
+
+bspc config remove_disabled_monitor true
+bspc config remove_unpluged_monitor true
+bspc config merge_overlapping_monitors true
+
+bspc rule -a Gimp desktop=^8 follow=on floating=on
+bspc rule -a Chromium desktop=^2
+bspc rule -a mplayer2 floating=on
+bspc rule -a Kupfer.py focus=on
+bspc rule -a Screenkey manage=off
+bspc rule -a copyq floating=on
+bspc rule -a "Firefox Preferences" floating=on
+
+feh --bg-fill $HOME/Pictures/Wallpaper/current.* &
+
+compton --config ~/.config/compton/compton.conf -b &
+
+xrdb $HOME/.Xresources &
+
+$HOME/.bin/panel/panel

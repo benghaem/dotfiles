@@ -1,0 +1,26 @@
+ #! /bin/bash
+
+. $HOME/.bin/panel/panel_settings
+
+ #Brightness Notification
+CURBACKLIGHT="$(cat "$BACKLIGHTPATH")"
+
+BACKPER="$(echo "($CURBACKLIGHT + $MINBACKLIGHT) * 100 / $MAXBACKLIGHT" | bc )"
+ (
+
+ echo "Brightness"
+echo $BACKPER
+ ) | dzen2 \
+ 	-p 1 \
+ 	-x "1790" \
+ 	-y "25" \
+ 	-w "125" \
+ 	-h "28" \
+ 	-l "1" \
+ 	-sa 'c' \
+ 	-ta 'c' \
+    -title-name 'popup_vol'\
+    -e 'onstart=uncollapse;button1=exit;button3=exit'\
+    -fn "${PANEL_FONT_FAMILY}:pixelsize=${NOT_FONT_SIZE}" \
+    -bg "$PANEL_COLOR_BACKGROUND" \
+    -fg "$PANEL_COLOR_FOREGROUND" &

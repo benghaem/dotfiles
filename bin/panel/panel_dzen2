@@ -1,0 +1,142 @@
+#! /bin/sh
+
+. $HOME/.bin/panel/panel_colors-dzen2
+. $HOME/.bin/panel/panel_settings
+
+
+NORMIFS=$IFS
+FIELDIFS=':'
+
+
+while getopts 'f:s:' opt ; do
+	case "$opt" in
+		f)
+			PANEL_FONT_FAMILY=$OPTARG
+			;;
+		s)
+			PANEL_FONT_SIZE=$OPTARG
+			;;
+	esac
+done
+
+shift $((OPTIND - 1))
+
+while read -r line ; do
+	case $line in
+		TEMP*)
+			# Sensor Output
+			temp="^fg($COLOR_TITLE_FG)^bg($COLOR_TITLE_BG)${PADDING}${line}${PADDING}^fg()^bg()"
+			;;
+		T*)
+			# xtitle output
+			len="${#line}"
+			if [[ $len > 1 ]]; then
+				title="^fg($COLOR_TITLE_FG)^bg($COLOR_TITLE_BG)${PADDING}${line:1:130}${PADDING}^fg()^bg()"
+			else
+				title=""
+			fi
+			;;
+		BAT*)
+			#Battery Output
+			bat="^fg($COLOR_TITLE_FG)^bg($COLOR_TITLE_BG)${PADDING}${line}${PADDING}^fg()^bg()"
+			;;
+		CPU*) 
+			#CPU Output
+			cpu="^fg($COLOR_TITLE_FG)^bg($COLOR_TITLE_BG)${PADDING}${line}${PADDING}^fg()^bg()"
+			;;
+		CLOCK*)
+			#clock Output
+			clock="^fg($COLOR_TITLE_FG)^bg($COLOR_TITLE_BG)^ca(1, $HOME/.bin/panel/dzen_cal)${PADDING}${line#?????}${PADDING}^ca()^fg()^bg()"
+			;;
+
+		NET*)
+			#network quality
+			net="^fg($COLOR_TITLE_FG)^bg($COLOR_TITLE_BG)^ca(1, $HOME/.bin/panel/dzen_net)${PADDING}${line}${PADDING}^ca()^fg()^bg()"
+			;;
+		MUSIC*)
+			#current song
+			#don't add padding because of dzen dumb space thing
+			music="^fg($COLOR_TITLE_FG)^bg($COLOR_TITLE_BG)${PADDING}${line}^fg()^bg()"
+			;;
+		W*)
+			# bspwm internal state
+			wm_infos="$PADDING"
+			IFS=$FIELDIFS
+			set -- ${line#?}
+			while [ $# -gt 0 ] ; do
+				item=$1
+				case $item in
+					[OoFfUu]*)
+						# desktops
+						name=${item#?}
+						case $item in
+							O*)
+								# focused occupied desktop
+								FG=$COLOR_FOCUSED_OCCUPIED_FG
+								BG=$COLOR_FOCUSED_OCCUPIED_BG
+								;;
+							F*)
+								# focused free desktop
+								FG=$COLOR_FOCUSED_FREE_FG
+								BG=$COLOR_FOCUSED_FREE_BG
+								;;
+							U*)
+								# focused urgent desktop
+								FG=$COLOR_FOCUSED_URGENT_FG
+								BG=$COLOR_FOCUSED_URGENT_BG
+								;;
+							o*)
+								# occupied desktop
+								FG=$COLOR_OCCUPIED_FG
+								BG=$COLOR_OCCUPIED_BG
+								;;
+							f*)
+								# free desktop
+								FG=$COLOR_FREE_FG
+								BG=$COLOR_FREE_BG
+								;;
+							u*)
+								# urgent desktop
+								FG=$COLOR_URGENT_FG
+								BG=$COLOR_URGENT_BG
+								;;
+						esac
+						wm_infos="${wm_infos}^fg(${FG})^bg(${BG})^ca(1, bspc desktop -f ${name})^ca(2, bspc window -d ${name})${PADDING}${name}${PADDING}^ca()^ca()"
+						;;
+					L*)
+						# layout
+						layout=$(printf "%s" "${item#?}" | sed 's/^\(.\).*/\U\1/')
+						wm_infos="${wm_infos}^fg()^bg()${DUALPADDING}^fg($COLOR_LAYOUT_FG)^bg($COLOR_LAYOUT_BG)^ca(1, bspc desktop -l next)${PADDING}$layout${PADDING}^ca()^bg()${DUALPADDING}"
+						;;
+				esac
+				shift
+			done
+			IFS=$NORMIFS
+			;;
+	esac
+	left_side="$wm_infos$title" #does not matter
+	#center_area="" #width = 0 removed from computatoin
+	right_side="$music $net$cpu$bat$temp $clock" #width = 696 to save the txtw calculation
+	#set -- $(printf '%s\0%s\0%s\0' "$left_side" "$center_area" "$right_side" | sed 's/\^[a-z]\+([^)]*)//g' | xargs -0 txtw -f "$PANEL_FONT_FAMILY" -s "$PANEL_FONT_SIZE")
+	# left_width=$1
+	# #center_width=$2
+	# #right_width=$3
+	# right_width=$COMPUTED_WIDTH
+	left_indent=0
+	right_indent=$COMPUTED_INDENT
+	# available_center=$((screen_width - (left_width + right_width)))
+	# if [ $available_center -lt $center_width ] ; then
+	# 	center_indent=$left_width
+	# else
+	# 	max_left_right_width=$left_width
+	# 	[ $left_width -lt $right_width ] && max_left_right_width=$right_width
+	# 	if [ $((2 * max_left_right_width + center_width)) -gt $screen_width ] ; then
+	# 		center_indent=$((left_width + (available_center - center_width) / 2))
+	# 	else
+	# 		center_indent=$(((screen_width - center_width) / 2))
+	# 	fi
+	# fi
+	#printf "%s\n" "^pa($center_indent)$center_area^pa($left_indent)$left_side^pa($right_indent)$right_side"
+	printf "%s\n" "^pa($left_indent)$left_side^pa($right_indent)$right_side"
+
+done

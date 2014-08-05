@@ -1,0 +1,26 @@
+ #! /bin/bash
+
+. $HOME/.bin/panel/panel_settings
+
+ #Volume Notification
+CURVOL="$(pamixer --get-volume)"
+
+ (
+
+ echo "Volume"
+echo $CURVOL
+ ) | dzen2 \
+ 	-p 1 \
+ 	-x "1815" \
+ 	-y "25" \
+ 	-w "100" \
+ 	-h "28" \
+ 	-l "1" \
+ 	-sa 'c' \
+ 	-ta 'c' \
+    -title-name 'popup_vol'\
+    -e 'onstart=uncollapse;button1=exit;button3=exit'\
+    -fn "${PANEL_FONT_FAMILY}:pixelsize=${NOT_FONT_SIZE}" \
+    -bg "$PANEL_COLOR_BACKGROUND" \
+    -fg "$PANEL_COLOR_FOREGROUND" &
+

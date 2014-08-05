@@ -1,0 +1,26 @@
+#Panel Settings
+
+PANEL_FIFO=/tmp/panel-fifo
+PANEL_CONTROL_FIFO=/tmp/panel-control-fifo
+PANEL_HEIGHT=22
+PANEL_FONT_FAMILY='dejavu sans mono'
+PANEL_FONT_SIZE=14
+NOT_FONT_SIZE=18
+PANEL_COLOR_BACKGROUND='#1E1E1E'
+PANEL_COLOR_FOREGROUND='#E5E5E5'
+SYS_WLAN_INTERFACE='wlp3s0'
+SYS_LAN_INTERFACE='enp0s25'
+MUSIC_OUTPUT_WIDTH='20'
+DUAL_BATT=true
+SHOW_SECONDS=false
+
+#This is based on wireless driver. For this card %70 in proc/net/wireless is the best
+FULL_WIFI=70
+
+BACKLIGHTPATH=/sys/class/backlight/acpi_video0/actual_brightness
+MAXBACKLIGHT=15
+MINBACKLIGHT=0
+
+PADDING=' '
+DUALPADDING='  '
+COMPUTED_INDENT=1248

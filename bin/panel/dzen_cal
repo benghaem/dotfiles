@@ -1,0 +1,20 @@
+ #! /bin/bash
+
+. $HOME/.bin/panel/panel_settings
+
+ (
+ echo "Calendar" 
+ cal | head -n 7
+ ) | dzen2 \
+ 	-p 4 \
+ 	-x "1735" \
+ 	-y "25" \
+ 	-w "180" \
+ 	-l "7" \
+ 	-sa 'c' \
+ 	-ta 'c'\
+    -title-name 'popup_cal'\
+    -e 'onstart=uncollapse;button1=exit;button3=exit'\
+    -fn "${PANEL_FONT_FAMILY}:pixelsize=${PANEL_FONT_SIZE}" \
+    -bg "$PANEL_COLOR_BACKGROUND" \
+    -fg "$PANEL_COLOR_FOREGROUND" &

@@ -1,0 +1,30 @@
+ #! /bin/bash
+
+. $HOME/.bin/panel/panel_settings
+
+#Get Link
+IP_LINK="$(ip route | grep 'via' | awk '{print $5}')"
+INTIP_ADDR="$(ip addr show $IP_LINK | grep 'inet' | awk '{print $2}' | head -n 1)"
+EXTIP_ADDR="$(dig +short myip.opendns.com @resolver1.opendns.com)"
+ (
+ echo "Network" 
+echo "IP: "$INTIP_ADDR
+echo "EXIP: "$EXTIP_ADDR
+if [[ $IP_LINK == $SYS_WLAN_INTERFACE ]]; then
+	SSID="$(iwconfig wlp3s0 | grep ESSID | awk '{print $4}')"
+	echo $SSID
+fi
+ ) | dzen2 \
+ 	-p 4 \
+ 	-x "1435" \
+ 	-y "25" \
+ 	-w "170" \
+ 	-l "3" \
+ 	-h "18" \
+ 	-sa 'c' \
+ 	-ta 'c'\
+    -title-name 'popup_cal'\
+    -e 'onstart=uncollapse;button1=exit;button3=exit'\
+    -fn "${PANEL_FONT_FAMILY}:pixelsize=${PANEL_FONT_SIZE}" \
+    -bg "$PANEL_COLOR_BACKGROUND" \
+    -fg "$PANEL_COLOR_FOREGROUND" &

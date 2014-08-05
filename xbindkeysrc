@@ -1,0 +1,21 @@
+#Increase Volume
+"pamixer --increase 5; /home/ben/.bin/panel/dzen_vol_not"
+  XF86AudioRaiseVolume
+
+#Decrease Volume
+"pamixer --decrease 5; /home/ben/.bin/panel/dzen_vol_not"
+  XF86AudioLowerVolume
+
+#Mute Mic
+"amixer -q set Capture toggle"
+  XF86AudioMicMute
+
+#Start LXrandr
+"lxrandr"
+  XF86Display
+
+#Caps Lock Indicator
+"/home/ben/.bin/panel/dzen_caps_not"
+  Caps_Lock
+
+

@@ -1,0 +1,170 @@
+#! /bin/sh
+
+
+#import settings
+. $HOME/.bin/panel/panel_settings
+
+if [ $(pgrep -cx panel) -gt 1 ] ; then
+	printf "%s\n" "The panel is already running." >&2
+	exit 1
+fi
+
+trap 'trap - TERM; kill 0' INT TERM QUIT EXIT
+
+[ -e "$PANEL_FIFO" ] && rm "$PANEL_FIFO"
+mkfifo "$PANEL_FIFO"
+
+bspc config top_padding $PANEL_HEIGHT
+
+bspc control --subscribe > "$PANEL_FIFO" &
+xtitle -sf 'T%s' > "$PANEL_FIFO" &
+
+while [[ true ]]; do
+	if [[ SHOW_SECONDS == true ]]; then
+	date +'CLOCK'%d/%m' '%H:%M:%S > "$PANEL_FIFO"
+	sleep 1s;
+	else
+	date +'CLOCK'%d/%m' '%H:%M > "$PANEL_FIFO"
+	sleep 5s;
+	fi
+done &
+
+while [[ true ]]; do
+	cur_battery="$(acpi | awk '{gsub(",",""); print $4+0}')"
+	if [[ DUAL_BATT ]]; then
+		bat1=`echo $cur_battery | awk '{print $1+0}'`
+		bat2=`echo $cur_battery | awk '{print $2+0}'`
+		cur_battery="$((($bat2 + $bat1)/2))"
+	fi
+	printf "BAT:%3s%%\n" "$cur_battery" > "$PANEL_FIFO"
+	sleep 20s;
+done &
+
+while [[ true ]]; do
+	#add 0 to $2 to make int 
+	printf "TEMP:%2sc\n" "$(sensors | grep -i 'Physical' | awk '{print $4+0}')" > "$PANEL_FIFO"
+	sleep 5s;
+done &
+
+while [[ true ]]; do
+	cpu_usage="$(top -bn 2 -d .5 | grep '^%Cpu' | tail -n 1 | gawk '{print int($2+$4+$6)+1}')"
+	printf "CPU:%3s%%\n" "$cpu_usage" > "$PANEL_FIFO"
+	sleep 5s;
+done &
+
+while [[ true ]]; do
+	IP_LINK="$(ip route | grep 'via' | awk '{print $5}')"
+	if [[ $IP_LINK == $SYS_WLAN_INTERFACE ]]; then
+		#add 0 to $3 to make int
+		net_qual="$( cat /proc/net/wireless | tail -n1 | awk '{gsub("\\.", ""); print $3+0}')"
+		net_qual=`echo "scale=2; $net_qual / $FULL_WIFI * 100" | bc | awk '{print $1+0}'`
+		net_qual=${net_qual}"%"
+	elif [[ $IP_LINK == $SYS_LAN_INTERFACE ]]; then
+		net_qual=" LAN"
+	else 
+		net_qual=" D/C"
+	fi
+	printf "NET:%4s\n" "$net_qual" > "$PANEL_FIFO"
+	sleep 20s;
+done &
+
+PID="first"
+LAST_MOPIDY_INFO="none"
+
+dzenFixStaticOutput(){
+	# \u200B is a no break space to add some padding for dzen since normal spaces can't be used
+	printf "MUSIC:%*s\u00A0\n" "$MUSIC_OUTPUT_WIDTH" "$MOPIDY_INFO" > "$PANEL_FIFO"
+	PID="none"
+	LAST_MOPIDY_INFO=$MOPIDY_INFO
+}
+mopidyOutput(){
+	MOPIDY_RAW="$(mpc -f '%artist% - %title% - ')"
+	MOPIDY_INFO="$(echo "$MOPIDY_RAW" | head -n 1 | iconv -f utf-8 -t us-ascii//TRANSLIT)"
+	#echo $MOPIDY_INFO
+	MOPIDY_STATE="$(echo "$MOPIDY_RAW" | head -n 2 | tail -n 1 | awk '{gsub("\\[", ""); gsub("\\]", ""); print $1}')"
+	#echo $MOPIDY_STATE
+	if [[ $MOPIDY_STATE == "stopped" ]] || [[ $MOPIDY_STATE == *volume:* ]]; then
+		MOPIDY_INFO="Stopped"
+		if ([[ $PID != "first" ]] && [[ $PID != "none" ]]); then
+			kill $PID
+			PID="none"
+		fi
+		dzenFixStaticOutput
+		continue;
+	fi
+	if [[ $MOPIDY_STATE == "paused" ]]; then
+		MOPIDY_INFO="Paused - $MOPIDY_INFO"
+	fi
+	if [[ $MOPIDY_INFO != $LAST_MOPIDY_INFO ]]; then
+		if ([[ $PID != "first" ]] && [[ $PID != "none" ]]); then
+			kill $PID
+			PID="none"
+		fi
+		#echo ${#MOPIDY_INFO}
+		#echo $MUSIC_OUTPUT_WIDTH
+		if [[ ${#MOPIDY_INFO} -gt "$MUSIC_OUTPUT_WIDTH" ]]; then
+			$HOME/.bin/panel/scroller "$MOPIDY_INFO" "$MUSIC_OUTPUT_WIDTH" "MUSIC:" "DZEN" > "$PANEL_FIFO" &
+			PID=$!
+		else
+			#echo "too short to scroll"
+			MOPIDY_INFO="$(echo "$MOPIDY_INFO" | rev | cut -c 4- | rev)"
+			dzenFixStaticOutput
+		fi
+
+		LAST_MOPIDY_INFO=$MOPIDY_INFO
+		#echo $PID
+	fi
+}
+
+while [[ true ]]; do
+	##CHECK FOR MPD SERVER
+	if [[ $PID == "first" ]]; then
+		#echo "checking alive"
+		mpc > /dev/null 2>&1
+		if [ "$?" == "0" ]; then
+			mopidyOutput
+		else
+			MOPIDY_INFO="MOPIDY/MPD OFFLINE"
+			dzenFixStaticOutput
+			#keep in the first loop
+			PID="first"
+			sleep 10s;
+			continue;
+		fi
+	fi
+	MPC_STATE=`mpc idle` #> /dev/null 2>&1
+	if [ "$?" -ne "0" ]; then
+		if ([[ $PID != "first" ]] && [[ $PID != "none" ]]); then
+			kill $PID
+		fi
+		PID="first"
+		continue;
+	else
+		#exit early if mixer to save cpu
+		if [ "$MPC_STATE" == "mixer" ]; then
+			continue;
+		fi
+	fi
+	# printf "0" > "$PANEL_CONTROL_FIFO"
+	mopidyOutput
+
+done &
+
+cat "$PANEL_FIFO" \
+| \
+$HOME/.bin/panel/panel_dzen2 \
+    -f "$PANEL_FONT_FAMILY" \
+    -s "$PANEL_FONT_SIZE" \
+| \
+dzen2 \
+    -e \
+    -dock \
+    -h $PANEL_HEIGHT \
+    -ta l \
+    -title-name panel \
+    -fn "${PANEL_FONT_FAMILY}:pixelsize=${PANEL_FONT_SIZE}" \
+    -bg "$PANEL_COLOR_BACKGROUND" \
+    -fg "$PANEL_COLOR_FOREGROUND" &
+
+wait
+
