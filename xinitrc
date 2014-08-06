@@ -37,7 +37,7 @@ xflux -z 22903 &
 seafile-applet &
 
 #deal with monitors
-xrandr --output eDP1 --auto --primary
+#xrandr --output eDP1 --auto --primary
 #xrandr --output HDMI1 --auto --right-of eDP1
 
 #start locker
@@ -54,9 +54,10 @@ dunst &
 #start panel
 #/home/ben/.bin/panel/panel &
 
+#fix display thing
+
+/home/ben/.bin/echoDisplay.sh &
+
 #start keybinds
 sxhkd &
 exec bspwm
-
-#start panel
-# ...or the Window Manager of your choice

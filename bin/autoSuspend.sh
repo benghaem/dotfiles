@@ -63,6 +63,7 @@ if [[ $CANCEL == true ]]; then
 	/usr/bin/sxlock -f -*-terminus-*-r-*-*-32-*-*-*-*-*-*-*
 	killall -SIGUSR2 dunst # resume
 else
+	#I use a systemctl suspend modification
 	systemctl suspend
 fi
 
