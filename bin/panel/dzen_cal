@@ -11,6 +11,7 @@
  	-y "25" \
  	-w "180" \
  	-l "7" \
+ 	-h "20" \
  	-sa 'c' \
  	-ta 'c'\
     -title-name 'popup_cal'\
