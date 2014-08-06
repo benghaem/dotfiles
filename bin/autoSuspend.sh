@@ -4,6 +4,7 @@
 WHITELIST=("GoogleTalkPlug" "mumble")
 #Don't lock screen when these are running
 SCREENONLIST=("GoogleTalkPlug" "")
+SCREENONFULLSCREEN=true
 CANCELONMUSIC=true
 CANCEL=false
 STATEFILE=$HOME/.bin/xautolock.state
@@ -11,6 +12,7 @@ STATE=`cat $STATEFILE`
 
 #Check Statefile for notification state
 if [[ $STATE == "disabled" ]]; then
+	#echo "mode disabled"
 	exit 0
 fi
 
@@ -19,9 +21,21 @@ for i in ${SCREENONLIST[@]}; do
 	pgrep $i > /dev/null 2>&1
 	#if we find one exit script
 	if [ "$?" == "0" ]; then
+		#echo "found screenon"
 		exit 0
 	fi
 done
+
+#Check if any app is fullscreen
+if [[ $SCREENONFULLSCREEN == true ]]; then
+	#this checks the bspc tree for a window with the fullscreen flag. Could be modified to search for any other of the flags shown.
+	bspc query -T | grep '[f-][d-][F][u-][l-][s-][i-][p-]' > /dev/null 2>&1
+	#if we find one exit script
+	if [ "$?" == "0" ]; then
+		#echo "found fullscreen"
+		exit 0
+	fi
+fi
 
 #Check if whitelist programs are running
 for i in ${WHITELIST[@]}; do
