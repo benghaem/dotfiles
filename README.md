@@ -11,6 +11,7 @@ This is a collection of dotfiles for use with BSPWM or any other window manager 
 * sxhkd
 * xbindkeys
 * dmenu
+* dunst
 
 ###Panel
 * acpi 					 (Battery)
@@ -24,7 +25,6 @@ This is a collection of dotfiles for use with BSPWM or any other window manager 
 * pamixer (Volume Notification)
 * trayer 	   (Tray Icon Display)
 * xset (Caps Lock Notification)
-
 
 ###Music
 * Mopidy or MPD (Music Server)
