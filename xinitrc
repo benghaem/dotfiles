@@ -24,6 +24,9 @@ xsetroot -cursor_name left_ptr
 #nonsxhkd keybinds
 xbindkeys
 
+#set xresource settings
+xrdb $HOME/.Xresources &
+
 #start clipboard management
 copyq &
 
@@ -41,6 +44,9 @@ xrandr --output eDP1 --auto --primary
 xautolock -time 3 -locker "/home/ben/.bin/autoSuspend.sh" -detectsleep &
 #set xautolock state
 echo 'enabled' > /home/ben/.bin/xautolock.state
+
+#start notification server
+dunst &
 
 #start mopidy with anti-crash script that also fixes online problem
 /home/ben/.bin/mopidyStart.sh &
