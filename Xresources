@@ -53,4 +53,5 @@ URxvt.scrollBar: false
 URxvt.depth: 32
 URxvt.background: [80]#000000
 URxvt.font: xft:terminus:size=12
+URxvt.urgentOnBell: true
 
