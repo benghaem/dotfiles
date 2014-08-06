@@ -1,7 +1,7 @@
 #! /bin/sh
 
 #Don't suspend when these are running
-WHITELIST=("GoogleTalkPlug" "")
+WHITELIST=("GoogleTalkPlug" "mumble")
 #Don't lock screen when these are running
 SCREENONLIST=("GoogleTalkPlug" "")
 CANCELONMUSIC=true
@@ -45,7 +45,9 @@ fi
 if [[ $CANCEL == true ]]; then
 	sleep 2s;
 	xset dpms force off;
-	/usr/bin/sxlock -f -*-terminus-*-r-*-*-32-*-*-*-*-*-*-* &
+	killall -SIGUSR1 dunst # pause
+	/usr/bin/sxlock -f -*-terminus-*-r-*-*-32-*-*-*-*-*-*-*
+	killall -SIGUSR2 dunst # resume
 else
 	systemctl suspend
 fi
