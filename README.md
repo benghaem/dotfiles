@@ -8,10 +8,10 @@ This is a collection of dotfiles for use with BSPWM or any other window manager 
 ###General
 * bspwm
 * compton
-* sxhkd
-* xbindkeys
 * dmenu
 * dunst
+* sxhkd
+* xbindkeys
 
 ###Panel
 * acpi 					 (Battery)
