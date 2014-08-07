@@ -22,7 +22,7 @@ xsetroot -cursor_name left_ptr
 /usr/bin/start-pulseaudio-x11
 
 #nonsxhkd keybinds
-xbindkeys
+xbindkeys &
 
 #set xresource settings
 xrdb $HOME/.Xresources &
@@ -37,26 +37,22 @@ xflux -z 22903 &
 seafile-applet &
 
 #deal with monitors
-#xrandr --output eDP1 --auto --primary
+xrandr --output eDP1 --auto --primary
 #xrandr --output HDMI1 --auto --right-of eDP1
 
 #start locker
-xautolock -time 3 -locker "/home/ben/.bin/autoSuspend.sh" -detectsleep &
+xautolock -time 3 -locker $HOME"/.bin/autoSuspend.sh" -detectsleep &
 #set xautolock state
-echo 'enabled' > /home/ben/.bin/xautolock.state
+echo 'enabled' > $HOME/.bin/xautolock.state
 
 #start notification server
 dunst &
 
 #start mopidy with anti-crash script that also fixes online problem
-/home/ben/.bin/mopidyStart.sh &
-
-#start panel
-#/home/ben/.bin/panel/panel &
+$HOME/.bin/mopidyStart.sh &
 
 #fix display thing
-
-/home/ben/.bin/echoDisplay.sh &
+$HOME/.bin/echoDisplay.sh &
 
 #start keybinds
 sxhkd &

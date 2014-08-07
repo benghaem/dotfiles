@@ -1,9 +1,9 @@
 #Increase Volume
-"pamixer --increase 5; /home/ben/.bin/panel/dzen_vol_not"
+"pamixer --increase 5; $HOME/.bin/panel/dzen_vol_not"
   XF86AudioRaiseVolume
 
 #Decrease Volume
-"pamixer --decrease 5; /home/ben/.bin/panel/dzen_vol_not"
+"pamixer --decrease 5; $HOME/.bin/panel/dzen_vol_not"
   XF86AudioLowerVolume
 
 #Mute Mic
@@ -15,7 +15,7 @@
   XF86Display
 
 #Caps Lock Indicator
-"/home/ben/.bin/panel/dzen_caps_not"
+"$HOME/.bin/panel/dzen_caps_not"
   Caps_Lock
 
 
