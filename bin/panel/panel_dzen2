@@ -31,7 +31,8 @@ while read -r line ; do
 			# xtitle output
 			len="${#line}"
 			if [[ $len > 1 ]]; then
-				title="^fg($COLOR_TITLE_FG)^bg($COLOR_TITLE_BG)${PADDING}${line:1:130}${PADDING}^fg()^bg()"
+				#edit 130 to change max characters
+				title="^fg($COLOR_TITLE_FG)^bg($COLOR_TITLE_BG)${PADDING}${line:1:$MAX_TITLE_WIDTH}${PADDING}^fg()^bg()"
 			else
 				title=""
 			fi

@@ -11,12 +11,15 @@ NOT_FONT_SIZE=18
 PANEL_COLOR_BACKGROUND='#1E1E1E'
 PANEL_COLOR_FOREGROUND='#E5E5E5'
 
-#System network interfaces. Read output of ip addr
+#System network interfaces. Read output of ip addr to find.
 SYS_WLAN_INTERFACE='wlp3s0'
 SYS_LAN_INTERFACE='enp0s25'
 
-#Width of music scroller w/o MUSIC: prefix
+#Width of music scroller w/o MUSIC: prefix. Note the quotes.
 MUSIC_OUTPUT_WIDTH='20'
+
+#Width of title. Note the lack of ''. You may need to play around with this setting on smaller screen sizes
+MAX_TITLE_WIDTH=130
 
 #Mark true if your laptop has two batteries
 DUAL_BATT=true
@@ -40,7 +43,7 @@ DUALPADDING='  '
 # echo "MUSIC:              Stopped   NET: 80%  CPU: 20%  BAT: 99%  TEMP:35c    06/08 20:30" | xargs -0 txtw -f "your font" -s "your font size" then subtract that value from your screen width.
 COMPUTED_INDENT=1248
 
-#Dont change these unless you know what you are doing
+#Dont change these unless you have a reason to.
 PANEL_FIFO=/tmp/panel-fifo
 PANEL_CONTROL_FIFO=/tmp/panel-control-fifo
 
