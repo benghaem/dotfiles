@@ -4,12 +4,16 @@
 WHITELIST=("GoogleTalkPlug" "mumble")
 #Don't lock screen when these are running
 SCREENONLIST=("GoogleTalkPlug" "")
+#Don't lock screen when an app is fullscreen ****BSPWM ONLY****
 SCREENONFULLSCREEN=true
+#Don't suspend if MPD server is playing music
 CANCELONMUSIC=true
-CANCEL=false
+#Don't change unless you know what you are doing
 STATEFILE=$HOME/.bin/xautolock.state
-STATE=`cat $STATEFILE`
 
+#START SCRIPT
+STATE=`cat $STATEFILE`
+CANCEL=FALSE
 #Check Statefile for notification state
 if [[ $STATE == "disabled" ]]; then
 	#echo "mode disabled"
