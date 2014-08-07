@@ -1,26 +1,47 @@
 #Panel Settings
 
-PANEL_FIFO=/tmp/panel-fifo
-PANEL_CONTROL_FIFO=/tmp/panel-control-fifo
 PANEL_HEIGHT=22
+
 PANEL_FONT_FAMILY='dejavu sans mono'
+
 PANEL_FONT_SIZE=14
 NOT_FONT_SIZE=18
+
+#Panel Foreground and background colors
 PANEL_COLOR_BACKGROUND='#1E1E1E'
 PANEL_COLOR_FOREGROUND='#E5E5E5'
+
+#System network interfaces. Read output of ip addr
 SYS_WLAN_INTERFACE='wlp3s0'
 SYS_LAN_INTERFACE='enp0s25'
+
+#Width of music scroller w/o MUSIC: prefix
 MUSIC_OUTPUT_WIDTH='20'
+
+#Mark true if your laptop has two batteries
 DUAL_BATT=true
+
+#Show seconds on clock
 SHOW_SECONDS=false
 
-#This is based on wireless driver. For this card %70 in proc/net/wireless is the best
+#This is based on wireless driver. For my driver and wireless card %70 in /proc/net/wireless is the best. Observe /proc/net/wireless when very close to your wireless access point and can reasonably assume 100% signal. 
 FULL_WIFI=70
 
+#Currently not used because thinkpad_acpi does not seem to properly expose events. May be used in the future.
 BACKLIGHTPATH=/sys/class/backlight/acpi_video0/actual_brightness
 MAXBACKLIGHT=15
 MINBACKLIGHT=0
 
+#Padding characters
 PADDING=' '
 DUALPADDING='  '
+
+#To get the value for this setting run 
+# echo "MUSIC:              Stopped   NET: 80%  CPU: 20%  BAT: 99%  TEMP:35c    06/08 20:30" | xargs -0 txtw -f "your font" -s "your font size" then subtract that value from your screen width.
 COMPUTED_INDENT=1248
+
+#Dont change these unless you know what you are doing
+PANEL_FIFO=/tmp/panel-fifo
+PANEL_CONTROL_FIFO=/tmp/panel-control-fifo
+
+
