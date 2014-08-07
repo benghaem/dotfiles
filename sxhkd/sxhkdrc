@@ -3,7 +3,7 @@
 #
 
 super + alt + Escape
-	bspc quit
+	bspc quit && pkill panel
 
 super + w
 	bspc window -c
@@ -14,8 +14,8 @@ super + t
 super + b
 	bspc desktop -B
 
-super + {s,f}
-	bspc window -t {floating,fullscreen}
+super + {s,f,a}
+	bspc window -t {floating,fullscreen,pseudo_tiled}
 
 super + {grave,Tab}
 	bspc {window,desktop} -f last

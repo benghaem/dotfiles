@@ -26,4 +26,4 @@ feh --bg-fill $HOME/Pictures/Wallpaper/current.* &
 
 compton --config ~/.config/compton/compton.conf -b &
 
-$HOME/.bin/panel/panel
+$HOME/.bin/panel/panel &
