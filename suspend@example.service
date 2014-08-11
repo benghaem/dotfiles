@@ -1,0 +1,13 @@
+[Unit]
+Description=User suspend actions
+Before=sleep.target
+
+[Service]
+User=%I
+Type=forking
+EnvironmentFile=/tmp/DISPLAY.env
+ExecStart=/bin/sh -c '/usr/bin/sxlock -f -*-terminus-*-r-*-*-32-*-*-*-*-*-*-* &'
+ExecStartPost=/usr/bin/sleep 1s
+
+[Install]
+WantedBy=suspend.target
