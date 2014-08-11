@@ -13,6 +13,6 @@ while [[ true ]]; do
 		done
 		#config = "/home/ben/.config/mopidy/mopidy_offline.conf"
 	fi
-	
+	notify-send "Mopidy is Restarting"
 	sleep 1;
 done
