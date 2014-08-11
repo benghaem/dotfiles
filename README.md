@@ -27,6 +27,7 @@ This is a collection of dotfiles for use with BSPWM or any other window manager 
 * Dejavu Sans Mono (Panel Font)
 * dnsutils (Network External IP)
 * dzen2 				   (Panel)
+* gcalcli (gCal in Calendar Notification)
 * iw (Network SSID)
 * lm_sensors 			(CPU Temp)
 * mpc 	(MPD Server Communication)
