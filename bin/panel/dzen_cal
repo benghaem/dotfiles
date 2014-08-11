@@ -2,20 +2,73 @@
 
 . $HOME/.bin/panel/panel_settings
 
- (
- echo "Calendar" 
- cal | head -n 7
- ) | dzen2 \
- 	-p 4 \
- 	-x "1735" \
- 	-y "25" \
- 	-w "180" \
- 	-l "7" \
- 	-h "20" \
- 	-sa 'c' \
- 	-ta 'c'\
-    -title-name 'popup_cal'\
-    -e 'onstart=uncollapse;button1=exit;button3=exit'\
-    -fn "${PANEL_FONT_FAMILY}:pixelsize=${PANEL_FONT_SIZE}" \
-    -bg "$PANEL_COLOR_BACKGROUND" \
-    -fg "$PANEL_COLOR_FOREGROUND" &
+if [[ $GCALCLI == true ]]; then
+	#start first cal so that something actually happens on click
+	(
+	 echo "Calendar" 
+	 cal | head -n 7
+	 ) | dzen2 \
+	 	-p 8 \
+	 	-x "1735" \
+	 	-y "27" \
+	 	-w "180" \
+	 	-l "7" \
+	 	-h "18" \
+	 	-sa 'c' \
+	 	-ta 'c'\
+	    -title-name 'popup_temp_cal_dzen2_safe'\
+	    -e 'onstart=uncollapse;button1=exit;button3=exit'\
+	    -fn "${PANEL_FONT_FAMILY}:pixelsize=${PANEL_FONT_SIZE}" \
+	    -bg "$PANEL_COLOR_BACKGROUND" \
+	    -fg "$PANEL_COLOR_FOREGROUND" &
+	TODAY=`date +'%a %b %d'`
+	TOM=`date -d '+1 day' +'%a %b %d'`
+	CAL=`gcalcli --cals=editor --cals=owner --nc agenda today 1day | awk -v today="$TODAY" '{gsub(today,"   Today     \n          "); gsub("          "," "); print}' | awk -v tom="$TOM" '{gsub(tom,"   Tomorrow   \n "); print}'`
+	LINES_CAL=`echo "$CAL" | sed -n '$='`
+	#LINES_TOM=`echo "$CAL_TOM" | sed -n '$='`
+	LINES_TOTAL=$(( $LINES_CAL + 8))
+	(
+	echo "Calendar" 
+	cal | head -n 7 | sed 's/^/         /'
+	echo -e "$CAL"
+	 ) | dzen2 \
+	 	-p 8 \
+	 	-x "1615" \
+	 	-y "27" \
+	 	-w "300" \
+	 	-l "$LINES_TOTAL" \
+	 	-h "18" \
+	 	-ta 'c'\
+	 	-sa 'l' \
+	    -title-name 'popup_cal_partb'\
+	    -e 'onstart=uncollapse;button1=exit;button3=exit'\
+	    -fn "${PANEL_FONT_FAMILY}:pixelsize=${PANEL_FONT_SIZE}" \
+	    -bg "$PANEL_COLOR_BACKGROUND" \
+	    -fg "$PANEL_COLOR_FOREGROUND" &
+	#wait for fade in to start
+	sleep .2s  
+    PID="$( pgrep dzen | xargs ps | grep popup_temp_cal_dzen2_safe | awk '{print $1}' )"
+	if [[ $PID ]]; then
+		kill $PID
+	fi
+else
+	(
+	 echo "Calendar" 
+	 cal | head -n 7
+	 ) | dzen2 \
+	 	-p 8 \
+	 	-x "1735" \
+	 	-y "27" \
+	 	-w "180" \
+	 	-l "7" \
+	 	-h "18" \
+	 	-sa 'c' \
+	 	-ta 'c'\
+	    -title-name 'popup_cal'\
+	    -e 'onstart=uncollapse;button1=exit;button3=exit'\
+	    -fn "${PANEL_FONT_FAMILY}:pixelsize=${PANEL_FONT_SIZE}" \
+	    -bg "$PANEL_COLOR_BACKGROUND" \
+	    -fg "$PANEL_COLOR_FOREGROUND" &
+fi
+
+ 

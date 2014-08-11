@@ -35,6 +35,9 @@ BACKLIGHTPATH=/sys/class/backlight/acpi_video0/actual_brightness
 MAXBACKLIGHT=15
 MINBACKLIGHT=0
 
+#If you use gcalcli set to true
+GCALCLI=true
+
 #Padding characters
 PADDING=' '
 DUALPADDING='  '
