@@ -14,13 +14,12 @@ bspc config remove_disabled_monitor true
 bspc config remove_unpluged_monitor true
 bspc config merge_overlapping_monitors true
 
-bspc rule -a Gimp desktop=^8 follow=on floating=on
-bspc rule -a Chromium desktop=^2
+bspc rule -a Gimp follow=on floating=on
 bspc rule -a mplayer2 floating=on
 bspc rule -a Kupfer.py focus=on
 bspc rule -a Screenkey manage=off
 bspc rule -a copyq floating=on
-bspc rule -a "Firefox Preferences" floating=on
+bspc rule -a mumble desktop=^5
 
 feh --bg-fill $HOME/Pictures/Wallpaper/current.* &
 
