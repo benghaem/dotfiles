@@ -71,7 +71,7 @@ Required symlinks are as follows:
 After the files are moved/symlinked please read the configuration section below
 
 ###Suspend Service
-The `suspend@example.service` should be moved to `/etc/systemd/system/`, renamed to `suspend@.service` and enabled with `systemctl enable suspend@user.service` as root where user is the user you would like to enable the service for. The service relies on `bin/echoDisplay.sh` to create `/tmp/DISPLAY.env` to ensure that sxlock is able to find the required display.
+The `suspend@example.service` should be moved to `/etc/systemd/system/`, renamed to `suspend@.service` and enabled with `systemctl enable suspend@user.service` as root (replace user with the user you would like to enable the service for). The service relies on `bin/echoDisplay.sh` to create `/tmp/DISPLAY.env` to ensure that sxlock is able to find the required display.
 
 ###Mopidy
 If you are planning to use `mopidyStart.sh` to start Mopidy in online or offline modes until plugin support improves, you will need to create your own configs for these states and move them to `~/.config/mopidy/mopidy_offline.conf` and `~/.config/mopidy/mopidy_online.conf`. I recommend using the same settings and disabling any plugins that connect to the Internet in the offline version of the config file. 
