@@ -36,7 +36,7 @@ mpd_connection_timeout = "5"
 #
 mpd_crossfade_time = "5"
 #
-mpd_communication_mode = "notifications" (polling/notifications)
+#mpd_communication_mode = "polling" (polling/notifications)
 #
 ##### music visualizer #####
 ##
@@ -301,7 +301,7 @@ visualizer_fifo_path = "/tmp/mopidy.fifo"
 #
 user_interface = "alternative" (classic/alternative)
 #
-#media_library_left_column = "a" (possible values: a,y,g,c,p, legend above)
+#media_library_left_column = "A" (possible values: a,y,g,c,p, legend above)
 #
 #default_find_mode = "wrapped" (wrapped/normal)
 #
@@ -384,7 +384,7 @@ user_interface = "alternative" (classic/alternative)
 ## Note: You can define startup screen for ncmpcpp
 ## by choosing screen number from the list above.
 ##
-startup_screen = "5"
+#startup_screen = "5"
 #
 #jump_to_now_playing_song_at_start = "yes"
 #

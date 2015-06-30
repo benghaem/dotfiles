@@ -1,0 +1,5 @@
+ #! /bin/bash
+ALTPID="$( pgrep dzen | xargs ps | grep popup_cal_part_cal_dzen2_safe | awk '{print $1}' )"
+if [[ $ALTPID ]]; then
+	kill $ALTPID
+fi

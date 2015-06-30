@@ -2,13 +2,20 @@
 
 . $HOME/.bin/panel/panel_settings
 
+killPopup(){
+	ALTPID="$( pgrep dzen | xargs ps | grep popup_cal_part_cal_dzen2_safe | awk '{print $1}' )"
+	if [[ $ALTPID ]]; then
+		kill $ALTPID
+	fi
+}
+
 if [[ $GCALCLI == true ]]; then
 	#start first cal so that something actually happens on click
 	(
 	 echo "Calendar" 
 	 cal | head -n 7
 	 ) | dzen2 \
-	 	-p 8 \
+	 	-p \
 	 	-x "1735" \
 	 	-y "27" \
 	 	-w "180" \
@@ -23,16 +30,26 @@ if [[ $GCALCLI == true ]]; then
 	    -fg "$PANEL_COLOR_FOREGROUND" &
 	TODAY=`date +'%a %b %d'`
 	TOM=`date -d '+1 day' +'%a %b %d'`
-	CAL=`gcalcli --cals=editor --cals=owner --nc agenda today 1day | awk -v today="$TODAY" '{gsub(today,"   Today     \n          "); gsub("          "," "); print}' | awk -v tom="$TOM" '{gsub(tom,"   Tomorrow   \n "); print}'`
+	AFTOM=`date -d '+2 day' +'%a %b %d'`
+	CAL=`gcalcli --calendar 'Ben - Main' --calendar 'Ben - Classes' --calendar 'Ben - Private' --nocolor agenda 12am 2day | awk -v today="$TODAY" '{gsub(today,"Today:\n------------\n    "); gsub("      ",""); print}' | awk -v tom="$TOM" '{gsub(tom,"Tomorrow:\n------------\n    "); gsub("      ","");  print}' | awk -v aftom="$AFTOM" '{gsub(aftom,aftom":\n------------\n    "); gsub("      ","");  print}' | sed 's/^/   /'`
 	LINES_CAL=`echo "$CAL" | sed -n '$='`
+	TODO=`/bin/python ~/.bin/todoistList.py | sed 's/^/   /'`
+	LINES_TODO=`echo "$TODO" | sed -n '$='`
 	#LINES_TOM=`echo "$CAL_TOM" | sed -n '$='`
-	LINES_TOTAL=$(( $LINES_CAL + 8))
+	LINES_CAL=$(( $LINES_CAL + 8))
+	if [[ ($LINES_CAL -ge $LINES_TODO) ]]; then
+		LINES_TOTAL=$LINES_CAL
+	else
+		LINES_TOTAL=$LINES_TODO
+	fi
 	(
-	echo "Calendar" 
+	echo ""
+	echo "               Calendar" 
 	cal | head -n 7 | sed 's/^/         /'
 	echo -e "$CAL"
+	# echo -e "$TODO"
 	 ) | dzen2 \
-	 	-p 8 \
+	 	-p \
 	 	-x "1615" \
 	 	-y "27" \
 	 	-w "300" \
@@ -40,8 +57,26 @@ if [[ $GCALCLI == true ]]; then
 	 	-h "18" \
 	 	-ta 'c'\
 	 	-sa 'l' \
-	    -title-name 'popup_cal_partb'\
-	    -e 'onstart=uncollapse;button1=exit;button3=exit'\
+	    -title-name 'popup_cal_part_cal_dzen2_safe'\
+	    -e 'onstart=uncollapse;button1=exec:$HOME/.bin/panel/dzen_kill_cal;button3=exit'\
+	    -fn "${PANEL_FONT_FAMILY}:pixelsize=${PANEL_FONT_SIZE}" \
+	    -bg "$PANEL_COLOR_BACKGROUND" \
+	    -fg "$PANEL_COLOR_FOREGROUND" &
+	    echo ""
+	(
+	echo ""
+	echo -e "$TODO"
+	 ) | dzen2 \
+	 	-p \
+	 	-x "1315" \
+	 	-y "27" \
+	 	-w "300" \
+	 	-l "$LINES_TOTAL" \
+	 	-h "18" \
+	 	-ta 'c'\
+	 	-sa 'l' \
+	    -title-name 'popup_cal_part_cal_dzen2_safe'\
+	    -e 'onstart=uncollapse;button1=exec:$HOME/.bin/panel/dzen_kill_cal;button3=exit'\
 	    -fn "${PANEL_FONT_FAMILY}:pixelsize=${PANEL_FONT_SIZE}" \
 	    -bg "$PANEL_COLOR_BACKGROUND" \
 	    -fg "$PANEL_COLOR_FOREGROUND" &
@@ -51,6 +86,7 @@ if [[ $GCALCLI == true ]]; then
 	if [[ $PID ]]; then
 		kill $PID
 	fi
+	
 else
 	(
 	 echo "Calendar" 

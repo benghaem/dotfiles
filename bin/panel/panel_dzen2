@@ -27,6 +27,10 @@ while read -r line ; do
 			# Sensor Output
 			temp="^fg($COLOR_TITLE_FG)^bg($COLOR_TITLE_BG)${PADDING}${line}${PADDING}^fg()^bg()"
 			;;
+		HIGHTEMP*)
+			# Sensor Output
+			temp="^fg($COLOR_WARNING_FG)^bg($COLOR_TITLE_BG)${PADDING}${line#????}${PADDING}^fg()^bg()"
+			;;
 		T*)
 			# xtitle output
 			len="${#line}"
@@ -39,7 +43,11 @@ while read -r line ; do
 			;;
 		BAT*)
 			#Battery Output
-			bat="^fg($COLOR_TITLE_FG)^bg($COLOR_TITLE_BG)${PADDING}${line}${PADDING}^fg()^bg()"
+			bat="^fg($COLOR_TITLE_FG)^bg($COLOR_TITLE_BG)^ca(1, $HOME/.bin/panel/dzen_bat)${PADDING}${line}${PADDING}^ca()^fg()^bg()"
+			;;
+		LOWBAT*)
+			#Battery Output
+			bat="^fg($COLOR_WARNING_FG)^bg($COLOR_TITLE_BG)^ca(1, $HOME/.bin/panel/dzen_bat)${PADDING}${line#???}${PADDING}^ca()^fg()^bg()"
 			;;
 		CPU*) 
 			#CPU Output
@@ -57,7 +65,7 @@ while read -r line ; do
 		MUSIC*)
 			#current song
 			#don't add padding because of dzen dumb space thing
-			music="^fg($COLOR_TITLE_FG)^bg($COLOR_TITLE_BG)${PADDING}${line}^fg()^bg()"
+			music="^fg($COLOR_TITLE_FG)^bg($COLOR_TITLE_BG)^ca(1, $HOME/.bin/panel/mpc_info)^ca(2, $HOME/.bin/panel/mpc_toggle)${PADDING}${line}^ca()^ca()^fg()^bg()"
 			;;
 		W*)
 			# bspwm internal state

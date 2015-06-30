@@ -1,10 +1,22 @@
+#Mute
+"pamixer --toggle-mute"
+  XF86AudioMute
+
 #Increase Volume
 "pamixer --increase 5; $HOME/.bin/panel/dzen_vol_not"
   XF86AudioRaiseVolume
 
+#Increase Volume Small
+"pamixer --increase 1; $HOME/.bin/panel/dzen_vol_not"
+  XF86AudioRaiseVolume + Shift
+
 #Decrease Volume
 "pamixer --decrease 5; $HOME/.bin/panel/dzen_vol_not"
   XF86AudioLowerVolume
+
+#Decrease Volume Small
+"pamixer --decrease 1; $HOME/.bin/panel/dzen_vol_not"
+  XF86AudioLowerVolume + Shift
 
 #Mute Mic
 "amixer -q set Capture toggle"

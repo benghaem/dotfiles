@@ -17,7 +17,10 @@ super + b
 super + {s,f,a}
 	bspc window -t {floating,fullscreen,pseudo_tiled}
 
-super + {grave,Tab}
+super + {_,shift + }v
+	bspc desktop -R {90, 180}
+
+alt + {grave,Tab}
 	bspc {window,desktop} -f last
 
 super + apostrophe
@@ -87,10 +90,13 @@ super + d
 	dmenu_run -h 22 -fn 'dejavu mono-10'
 
 super + shift + d
-	/home/ben/.bin/trayerToggle.sh
+	$HOME/.bin/trayerToggle.sh
 
 super + shift + Return
-	/home/ben/.bin/xautolockToggle.sh
+	$HOME/.bin/xautolockToggle.sh
+
+super + Tab
+	rofi -show window
 
 ctrl + grave
 	copyq toggle

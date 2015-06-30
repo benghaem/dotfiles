@@ -33,15 +33,19 @@ copyq &
 #start xflux
 xflux -z 22903 &
 
+#start keepassx
+#keepassx &
+
 #start seafile
 seafile-applet &
 
 #deal with monitors
 xrandr --output eDP1 --auto --primary
-#xrandr --output HDMI1 --auto --right-of eDP1
+xrandr --output HDMI1 --auto --right-of eDP1
+xrandr --output DP2 --auto --right-of eDP1
 
 #start locker
-xautolock -time 3 -locker $HOME"/.bin/autoSuspend.sh" -detectsleep &
+xautolock -time 1 -locker $HOME"/.bin/autoSuspend.sh" -detectsleep &
 #set xautolock state
 echo 'enabled' > $HOME/.bin/xautolock.state
 
@@ -49,7 +53,7 @@ echo 'enabled' > $HOME/.bin/xautolock.state
 dunst &
 
 #start mopidy with anti-crash script that also fixes online problem
-$HOME/.bin/mopidyStart.sh &
+# $HOME/.bin/mopidyStart.sh &
 
 #fix display thing
 $HOME/.bin/echoDisplay.sh &
@@ -57,3 +61,6 @@ $HOME/.bin/echoDisplay.sh &
 #start keybinds
 sxhkd &
 exec bspwm
+
+#exec gnome-session
+#exec startkde

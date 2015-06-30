@@ -1,0 +1,21 @@
+#! /bin/sh
+
+. $HOME/.bin/panel/panel_settings
+(
+ echo "Music" 
+echo "`mpc -f '%title%\n%album%\n%time%'`"
+
+ ) | dzen2 \
+ 	-p 4 \
+ 	-x "1255" \
+ 	-y "27" \
+ 	-w "200" \
+ 	-l "6" \
+ 	-h "18" \
+ 	-sa 'c' \
+ 	-ta 'c'\
+    -title-name 'popup_cal'\
+    -e 'onstart=uncollapse;button1=exit;button3=exit'\
+    -fn "${PANEL_FONT_FAMILY}:pixelsize=${PANEL_FONT_SIZE}" \
+    -bg "$PANEL_COLOR_BACKGROUND" \
+    -fg "$PANEL_COLOR_FOREGROUND" &

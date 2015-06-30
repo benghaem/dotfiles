@@ -52,7 +52,7 @@ URxvt*.color21:      base06
 URxvt.scrollBar: false
 URxvt.depth: 32
 URxvt.background: [80]#000000
-URxvt.font: xft:terminus:size=12
+URxvt.font: xft:terminus:size=14
 URxvt.urgentOnBell: true
 URxvt.perl-ext-common: default,matcher
 !URxvt.url-launcher: /usr/bin/xdg-open

@@ -1,0 +1,94 @@
+#! /bin/sh
+
+. $HOME/.bin/panel/panel_settings
+
+secToHMS(){
+	echo $1 | awk '{printf("%02d:%02d:%02d",($1/60/60%24),($1/60%60),($1%60))}'
+}
+
+if [[ $DUAL_BATT == true ]]; then
+	#Time to do lots of dumb acpi parsing!
+	bat0_energy=`cat /sys/class/power_supply/BAT0/energy_now`
+	bat1_energy=`cat /sys/class/power_supply/BAT1/energy_now`
+	bat0_use=`cat /sys/class/power_supply/BAT0/power_now`
+	bat1_use=`cat /sys/class/power_supply/BAT1/power_now`
+	bat0_state=`cat /sys/class/power_supply/BAT0/status`
+	bat1_state=`cat /sys/class/power_supply/BAT1/status`
+	
+	total_energy=$(( $bat0_energy + $bat1_energy))
+	total_use=$(( $bat0_use + $bat1_use))
+
+	total_time=`echo "scale=2; $total_energy / $total_use * 3600" | bc`
+	BATT_TIME=`secToHMS $total_time`
+
+	if [[ $bat0_state == "Charging" ]] || [[ $bat1_state == "Charging" ]]; then
+		BATT_STATE="Charging"
+	elif [[ $bat0_state == "Full" ]] && [[ $bat1_state == "Unknown" ]]; then
+		BATT_STATE="Full"
+	else 
+		BATT_STATE="Discharging"
+	fi
+	# cur_battery="$(acpi | awk '{gsub(",",""); print $4+0}')"
+	# bat0=`echo "$cur_battery" | awk '{print $1+0}'`
+	# bat1=`echo "$cur_battery" | awk '{print $2+0}'`
+	# bat0_time=`acpi | head -n 1 | awk '{print $5}'`
+	# bat1_time=`acpi | tail -n 1 | awk '{print $5}'`
+	# bat0_time_seconds=`echo $bat0_time | awk '{ gsub(":"," "); hr = $1 * 3600; mn = $2 * 60; se = $3; sum = hr + mn + se; print sum }'`
+	# bat1_time_seconds=`echo $bat1_time | awk '{ gsub(":"," "); hr = $1 * 3600; mn = $2 * 60; se = $3; sum = hr + mn + se; print sum }'`
+	# #assuming bat0 > bat1 drain order
+
+	# echo "Computing Bat0 and Bat 1 Based on Bat 0"
+	# echo $bat1_time" , "$bat0_time
+	# echo $bat1_time_seconds" , "$bat0_time_seconds
+
+	# if [[ $bat0_state == "Charging"  ]] || [[ $bat1_state == "Charging" ]]; then
+	# 	echo "Charging Mode"
+	# 	if [[ $bat0_time_seconds == 0 ]] && [[ $bat1_time_seconds == 0 ]]; then
+	# 		echo "Fully Charged"
+	# 	else
+	# 		echo "(100 - )"
+	# 	fi
+	# else
+	# 	echo "Discharge Mode"
+	# 	if [[ $bat0 -le 5 ]]; then
+	# 		echo "Ignoring Bat0"
+	# 		BATT_TIME=$bat1_time
+	# 	else
+	# 		echo "Computing Bat0 and Bat 1 Based on Bat 0"
+	# 		echo $bat1_time" , "$bat0_time
+	# 		echo $bat1_time_seconds" , "$bat0_time_seconds
+	# 	fi
+	# fi
+
+
+else
+	BATT_TIME=`acpi | awk '{gsub(",",""); print $5}'`
+	BATT_STATE=`acpi | awk '{gsub(",",""); print $3}'`
+fi
+
+##AC CHECK
+AC_STATE=`cat /sys/class/power_supply/AC/online`
+if [[ $AC_STATE == 1 ]]; then
+	BATT_TIME="AC"
+fi
+
+ (
+ echo "Battery"
+ echo "Remaining:"
+echo $BATT_TIME
+echo "State:"
+echo $BATT_STATE
+ ) | dzen2 \
+ 	-p 4 \
+ 	-x "1593" \
+ 	-y "25" \
+ 	-w "170" \
+ 	-l "4" \
+ 	-h "18" \
+ 	-sa 'c' \
+ 	-ta 'c'\
+    -title-name 'popup_cal'\
+    -e 'onstart=uncollapse;button1=exit;button3=exit'\
+    -fn "${PANEL_FONT_FAMILY}:pixelsize=${PANEL_FONT_SIZE}" \
+    -bg "$PANEL_COLOR_BACKGROUND" \
+    -fg "$PANEL_COLOR_FOREGROUND" &

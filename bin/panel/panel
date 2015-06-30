@@ -25,7 +25,7 @@ while [[ true ]]; do
 	sleep 1s;
 	else
 	date +'CLOCK'%d/%m' '%H:%M > "$PANEL_FIFO"
-	sleep 5s;
+	sleep 15s;
 	fi
 done &
 
@@ -36,20 +36,34 @@ while [[ true ]]; do
 		bat2=`echo $cur_battery | awk '{print $2+0}'`
 		cur_battery="$((($bat2 + $bat1)/2))"
 	fi
-	printf "BAT:%3s%%\n" "$cur_battery" > "$PANEL_FIFO"
+	if [[ $cur_battery -le 20 ]]; then
+		printf "LOWBAT:%3s%%\n" "$cur_battery" > "$PANEL_FIFO"
+	else
+		printf "BAT:%3s%%\n" "$cur_battery" > "$PANEL_FIFO"
+	fi
+	
+	if [[ $cur_battery -le 10 ]]; then
+ 		notify-send "Battery Critical" -u critical -t 20000
+ 	fi
+	
 	sleep 20s;
 done &
 
 while [[ true ]]; do
 	#add 0 to $2 to make int 
-	printf "TEMP:%2sc\n" "$(sensors | grep -i 'Physical' | awk '{print $4+0}')" > "$PANEL_FIFO"
-	sleep 5s;
+	cur_temp="$(sensors | grep -i 'Physical' | awk '{print $4+0}')"
+	if [[ cur_temp -ge 75 ]]; then
+		printf "HIGHTEMP:%2sc\n" "$cur_temp" > "$PANEL_FIFO"
+	else
+		printf "TEMP:%2sc\n" "$cur_temp" > "$PANEL_FIFO"
+	fi
+	sleep 15s;
 done &
 
 while [[ true ]]; do
 	cpu_usage="$(top -bn 2 -d .5 | grep '^%Cpu' | tail -n 1 | gawk '{print int($2+$4+$6)+1}')"
 	printf "CPU:%3s%%\n" "$cpu_usage" > "$PANEL_FIFO"
-	sleep 5s;
+	sleep 15s;
 done &
 
 while [[ true ]]; do
@@ -65,7 +79,7 @@ while [[ true ]]; do
 		net_qual=" D/C"
 	fi
 	printf "NET:%4s\n" "$net_qual" > "$PANEL_FIFO"
-	sleep 20s;
+	sleep 15s;
 done &
 
 PID="first"
@@ -161,10 +175,10 @@ dzen2 \
     -dock \
     -h $PANEL_HEIGHT \
     -ta l \
+    -xs 1 \
     -title-name panel \
     -fn "${PANEL_FONT_FAMILY}:pixelsize=${PANEL_FONT_SIZE}" \
     -bg "$PANEL_COLOR_BACKGROUND" \
     -fg "$PANEL_COLOR_FOREGROUND" &
-
 wait
 

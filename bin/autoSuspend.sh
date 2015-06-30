@@ -1,7 +1,7 @@
 #! /bin/sh
 
 #Don't suspend when these are running
-WHITELIST=("GoogleTalkPlug" "mumble")
+WHITELIST=("GoogleTalkPlug" "mumble" "pacman" "yaourt" "aura" "make" "backintime")
 #Don't lock screen when these are running
 SCREENONLIST=("GoogleTalkPlug" "")
 #Don't lock screen when an app is fullscreen ****BSPWM ONLY****
@@ -63,10 +63,12 @@ fi
 if [[ $CANCEL == true ]]; then
 	sleep 2s;
 	xset dpms force off;
+	feh --randomize --bg-fill /media/Wallpaper/*
 	killall -SIGUSR1 dunst # pause
 	/usr/bin/sxlock -f -*-terminus-*-r-*-*-32-*-*-*-*-*-*-*
 	killall -SIGUSR2 dunst # resume
 else
+	feh --randomize --bg-fill /media/Wallpaper/*
 	#I use a systemctl suspend modification
 	systemctl suspend
 fi

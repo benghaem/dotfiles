@@ -1,0 +1,442 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"p",
+				"project_id"
+			],
+			[
+				"ge",
+				"get_project_name"
+			],
+			[
+				"pro",
+				"project"
+			],
+			[
+				"todo",
+				"todoist_json"
+			],
+			[
+				"com",
+				"combo_str"
+			],
+			[
+				"data",
+				"data_str"
+			],
+			[
+				"tod",
+				"todo_item"
+			],
+			[
+				"api",
+				"apiKey"
+			],
+			[
+				"ap",
+				"apiKey"
+			],
+			[
+				"date",
+				"datetime"
+			],
+			[
+				"today",
+				"today_date"
+			],
+			[
+				"to",
+				"today_date"
+			],
+			[
+				"LINE",
+				"LINES_TOM"
+			],
+			[
+				"CAL",
+				"CAL_TOM"
+			],
+			[
+				"x",
+				"xautolock"
+			],
+			[
+				"STA",
+				"STATEFILE"
+			],
+			[
+				"state",
+				"STATEFILE"
+			],
+			[
+				"CAN",
+				"CANCEL"
+			],
+			[
+				"CA",
+				"CANCEL"
+			],
+			[
+				"fo",
+				"forin	for … in … done"
+			],
+			[
+				"MUSI",
+				"MUSIC_OUTPUT_WIDTH"
+			],
+			[
+				"pan",
+				"PANEL_FONT_SIZE"
+			],
+			[
+				"PANEL",
+				"PANEL_FONT_SIZE"
+			],
+			[
+				"IP",
+				"IP_LINK"
+			],
+			[
+				"EX",
+				"EXTIP_ADDR"
+			],
+			[
+				"I",
+				"IP_ADDR"
+			],
+			[
+				"wi",
+				"FULL_WIFI"
+			],
+			[
+				"net",
+				"net_qual"
+			],
+			[
+				"Pan",
+				"PANEL_COLOR_BACKGROUND"
+			],
+			[
+				"PNA",
+				"PANEL_COLOR_BACKGROUND"
+			],
+			[
+				"COM",
+				"COMPUTED_INDENT"
+			],
+			[
+				"Com",
+				"COMPUTED_WIDTH"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 208.0,
+		"selected_items":
+		[
+			[
+				"preview",
+				"Markdown Preview: Preview in Browser"
+			],
+			[
+				"pre",
+				"Markdown Preview: Preview in Browser"
+			],
+			[
+				"prew",
+				"Preferences: Browse Packages"
+			],
+			[
+				"mark",
+				"Markdown Preview: Preview in Browser"
+			],
+			[
+				"install ",
+				"Package Control: Install Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"INSTALL",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 583.0
+	},
+	"console":
+	{
+		"height": 146.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by) ",
+			" import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by) "
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/home/ben/.dotfiles"
+	],
+	"file_history":
+	[
+		"/home/ben/.dotfiles/bin/panel/panel",
+		"/home/ben/.dotfiles/bin/panel/panel_settings",
+		"/home/ben/.dotfiles/bspwm/bspwmrc",
+		"/home/ben/.dotfiles/sxhkd/sxhkdrc",
+		"/home/ben/.dotfiles/bin/todoistList.py",
+		"/home/ben/.dotfiles/Xresources",
+		"/home/ben/.dotfiles/xbindkeysrc",
+		"/home/ben/.dotfiles/xinitrc",
+		"/home/ben/.dotfiles/README.md",
+		"/home/ben/.dotfiles/bin/autoSuspend.sh",
+		"/home/ben/.dotfiles/bin/mopidyStart.sh",
+		"/home/ben/.dotfiles/bin/panel/dzen_blight_not",
+		"/home/ben/.dotfiles/bin/panel/dzen_net",
+		"/home/ben/.dotfiles/bin/panel/dzen_vol_not",
+		"/home/ben/todoist.json",
+		"/home/ben/Todoist API String",
+		"/home/ben/.bin/todoistList.py",
+		"/home/ben/.dotfiles/bin/panel/dzen_cal",
+		"/home/ben/.dotfiles/bin/panel/panel_dzen2",
+		"/home/ben/.dotfiles/dunst/dunstrc",
+		"/home/ben/.dotfiles/bin/panel/dzen_xautolock_not",
+		"/home/ben/.dotfiles/bin/echoDisplay.sh",
+		"/home/ben/.config/mopidy/mopidy_offline.conf",
+		"/home/ben/.config/mopidy/mopidy_online.conf",
+		"/home/ben/.dotfiles/bin/xautolock.state",
+		"/home/ben/.dotfiles/.gitignore",
+		"/home/ben/Downloads/xchatnickcolor.pl",
+		"/home/ben/Downloads/bitlbee_typing_notice.pl",
+		"/home/ben/.config/fehlstart/fehlstart.rc",
+		"/home/ben/.todoist_api_key",
+		"/home/ben/query?queries=[%22today%22,%22tomorrow%22,%22overdue%22]&token=7def5ac9de315328ffebfc834a62001cd6ada5d1",
+		"/home/ben/.dotfiles/bin/xautolockToggle.sh",
+		"/home/ben/.dotfiles/bin/autoResume.sh",
+		"/home/ben/.gtkrc-2.0",
+		"/home/ben/Desktop/steam.desktop",
+		"/home/ben/.dotfiles/bin/panel/xautolock.state",
+		"/home/ben/.dotfiles/bin/panel/dzen_caps_not",
+		"/usr/lib/python2.7/site-packages/caffeine/main.py",
+		"/usr/lib/python2.7/site-packages/caffeine/core.py",
+		"/home/ben/.dotfiles/bin/panel/panel_colors-dzen2",
+		"/home/ben/.xbindkeysrc",
+		"/home/ben/.bin/panel/panel_colors-dzen2",
+		"/home/ben/.bin/panel/scroller.c",
+		"/home/ben/.Xresources",
+		"/home/ben/.config/compton/compton.conf",
+		"/home/ben/.config/sxhkd/sxhkdrc",
+		"/home/ben/.xinitrc",
+		"/home/ben/.config/bspwm/bspwmrc",
+		"/home/ben/.bin/trayerToggle.sh",
+		"/home/ben/.bin/panel/dzen_cpu",
+		"/home/ben/.bin/panel/dzen_net",
+		"/home/ben/.bin/panel/dzen_caps_not",
+		"/home/ben/.bin/panel/dzen_vol_not",
+		"/home/ben/.bin/panel/dzen_blight_not",
+		"/home/ben/.bin/panel/panel_settings",
+		"/home/ben/.bin/panel/panel_dzen2",
+		"/home/ben/.bin/mopidyStart.sh",
+		"/home/ben/.bin/panel/panel",
+		"/home/ben/.stalonetrayrc",
+		"/home/ben/.bin/panel/dzen_sysinfo",
+		"/home/ben/.archey3.cfg",
+		"/home/ben/.Xauthority",
+		"/mnt/truecrypt1/passwords.txt",
+		"/home/ben/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
+		"/home/ben/Downloads/Panel Files - Arch Linux.zip"
+	],
+	"find":
+	{
+		"height": 29.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"&&",
+			"project",
+			")\n",
+			")",
+			"print (\"-------\")",
+			"todo_item",
+			"arg",
+			"Future",
+			"future",
+			"\")",
+			"super",
+			"            ",
+			"           ",
+			"          ",
+			"         ",
+			"        ",
+			"       ",
+			"      ",
+			"/home/ben",
+			"XF86AudioRaiseVolume",
+			"$HOME",
+			"/home/ben",
+			"Xresources",
+			"ffffff",
+			"60",
+			"true",
+			"disable",
+			"MOPIDY",
+			"\"",
+			" \\",
+			"FFFFFF",
+			"online",
+			"000000",
+			"F9A299",
+			"0E94FB",
+			"000000",
+			"FFFFFF",
+			"000000",
+			"4D4D4D",
+			"EDEDED",
+			"4D4D4D",
+			"4d4d4d",
+			"EDEDED",
+			"F6F9FF",
+			"CBCBCB",
+			"E5ECFB",
+			"5797C1",
+			"1F6795",
+			"A3A6AB",
+			"34322E",
+			"24",
+			"URxvt",
+			"urxvt",
+			"URxvt",
+			"*",
+			"$COMPUTED_INDENT"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 29.0
+	},
+	"input":
+	{
+		"height": 41.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 118.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"project": "dotfiles.sublime-project",
+	"replace":
+	{
+		"height": 54.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
