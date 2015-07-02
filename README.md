@@ -79,10 +79,6 @@ If you are planning to use `mopidyStart.sh` to start Mopidy in online or offline
 ###GTK Themes
 I use `numix-themes-archblue` from the AUR along with the Numix icon theme.
 
-###Wallpaper
-My current wallpaper:
-http://wallpapers.wallbase.cc/rozne/wallpaper-1976574.jpg
-
 ##Configuration
 
 ###Panel
