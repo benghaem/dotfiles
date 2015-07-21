@@ -3,7 +3,7 @@
 . $HOME/.bin/panel/panel_settings
 
 #Get Link
-IP_LINK="$(ip route | grep 'via' | awk '{print $5}')"
+IP_LINK="$(ip route | grep 'via' | awk '{print $5}' | head -n 1)"
 INTIP_ADDR="$(ip addr show $IP_LINK | grep 'inet' | awk '{print $2}' | head -n 1)"
 EXTIP_ADDR="$(dig +short myip.opendns.com @resolver1.opendns.com)"
  (

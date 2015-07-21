@@ -67,8 +67,16 @@ while [[ true ]]; do
 done &
 
 while [[ true ]]; do
-	IP_LINK="$(ip route | grep 'via' | awk '{print $5}')"
-	if [[ $IP_LINK == $SYS_WLAN_INTERFACE ]]; then
+	IP_LINK="$(ip route | grep 'via' | awk '{print $5}' | head -n 1)"
+	if [[ $IP_LINK == "tun0" ]] || [[ $IP_LINK == "tap0" ]]; then
+		if [[ $(ip route | grep $SYS_WLAN_INTERFACE) ]]; then
+			net_qual="$( cat /proc/net/wireless | tail -n1 | awk '{gsub("\\.", ""); print $3+0}')"
+			net_qual=`echo "scale=2; $net_qual / $FULL_WIFI * 100" | bc | awk '{print $1+0}'`
+			net_qual="V"${net_qual}"%"
+		else
+			net_qual="VLAN"
+		fi
+	elif [[ $IP_LINK == $SYS_WLAN_INTERFACE ]]; then
 		#add 0 to $3 to make int
 		net_qual="$( cat /proc/net/wireless | tail -n1 | awk '{gsub("\\.", ""); print $3+0}')"
 		net_qual=`echo "scale=2; $net_qual / $FULL_WIFI * 100" | bc | awk '{print $1+0}'`
