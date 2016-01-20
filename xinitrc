@@ -43,7 +43,8 @@ seafile-applet &
 xrandr --output eDP1 --auto --primary
 xrandr --output HDMI1 --auto --right-of eDP1
 xrandr --output DP2 --auto --right-of eDP1
-
+xrandr --addmode DP1 1920x1080
+xrandr --output DP1 --mode 1920x1080 --right-of eDP1
 #start locker
 xautolock -time 1 -locker $HOME"/.bin/autoSuspend.sh" -detectsleep &
 #set xautolock state

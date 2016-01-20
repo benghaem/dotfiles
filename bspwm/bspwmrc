@@ -11,9 +11,11 @@ bspc config gapless_monocle     true
 
 bspc monitor eDP1 -d 1 2 3 4 5
 bspc monitor HDMI1 -d 6 7 8 9 
+bspc monitor DP1 -d 6 7 8 9
 bspc monitor DP2 -d 6 7 8 9
 
-bspc config -m eDPI1 top_padding 22
+bspc config -m eDP1 top_padding 22
+bspc config -m DP1 top_padding 0
 
 bspc config remove_disabled_monitor true
 bspc config remove_unpluged_monitor true

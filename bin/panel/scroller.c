@@ -3,6 +3,7 @@
 #include <string.h>
 #include <time.h>
 #include <unistd.h>
+#include <stdbool.h>
 
 int main(int argc, char const *argv[]){
 	/* code */
@@ -10,7 +11,7 @@ int main(int argc, char const *argv[]){
 		printf("usage %s string width prefix mode[NORM or DZEN]\n", argv[0]);
 	}
 	else{
-		
+
 		int maxWidth;
 		sscanf (argv[2],"%d",&maxWidth);
 		//printf("MAX WIDTH:%i\n", maxWidth);
@@ -23,7 +24,9 @@ int main(int argc, char const *argv[]){
 
 		int paddingWidth;
 		paddingWidth = (maxWidth - stringWidth - prefixWidth);
-		
+
+
+        bool programRunning =true;
 		int i = 0;
 		char partA[stringWidth + 1];
 		char partB[stringWidth + 1];
@@ -39,11 +42,11 @@ int main(int argc, char const *argv[]){
 		struct timespec tim, tim2;
   		tim.tv_sec = 0;
    		tim.tv_nsec = 500000000L;
-		
+
 		int bLoc;
 
 		if (stringWidth > maxWidth){
-			while(true){
+			while(programRunning){
 				strncpy(partB, "", sizeof(partB));
 				if ( i == ( stringWidth )){
 					i = 0;
@@ -58,7 +61,7 @@ int main(int argc, char const *argv[]){
 				partA[maxWidth] = '\0';
 				//fix a dumb dzen behavior that removes trailing spaces by adding a no-break space to the end of the string
 				if ( strcmp(mode,"DZEN") == 0){
-					printf("%s%s%s\u00A0\n", prefix, partA, partB);
+					printf("%s%s%s|\n", prefix, partA, partB);
 				}
 				else{
 					printf("%s%s%s\n", prefix, partA, partB);
@@ -71,7 +74,7 @@ int main(int argc, char const *argv[]){
 		}
 		else{
 			if ( strcmp(mode,"DZEN") == 0){
-					printf("\u00A0%*s%s\u200B\n", paddingWidth, prefix, text);
+					printf("\u00A0%*s%s|\n", paddingWidth, prefix, text);
 				}
 			else{
 				printf("%*s%s\n", paddingWidth, prefix, text);
