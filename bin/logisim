@@ -1,0 +1,3 @@
+#!/bin/bash
+
+java -jar /home/ben/Seafile/Seafile-Main/UVA_2015-2016/ECE2330/LogisimFSM.jar &

@@ -14,6 +14,7 @@ rawJson = urllib.request.urlopen('https://api.todoist.com/TodoistSync/v5.3/get',
 data = rawJson.read().decode('utf-8')
 # data = open('/home/ben/todoist.json').read()
 todoist_json = json.loads(data)
+print(todoist_json)
 today_date = datetime.date.today()
 tom_date = today_date + datetime.timedelta(days=1)
 overdue = []
