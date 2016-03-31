@@ -16,7 +16,7 @@ mkfifo "$PANEL_FIFO"
 
 bspc config top_padding $PANEL_HEIGHT
 
-bspc control --subscribe > "$PANEL_FIFO" &
+bspc subscribe desktop > "$PANEL_FIFO" &
 xtitle -sf 'T%s' > "$PANEL_FIFO" &
 
 while [[ true ]]; do
@@ -103,6 +103,18 @@ dzenFixStaticOutput(){
 	PID="none"
 	LAST_MOPIDY_INFO=$MOPIDY_INFO
 }
+
+nuvolaOutput(){
+    NUVOLA_STATUS="$(nuvolaplayer3ctl track-info state)"
+    if [ "$?" == "0" ]; then
+        NUVOLA_TITLE="$(nuvolaplayer3ctl track-info title)"
+        NUVOLA_ARTIST="$(nuvolaplayer3ctl track-info artist)"
+        NUVOLA_DATA="$NUVOLA_TITLE - $NUVOLA_ARTIST - "
+        $HOME/.bin/panel/scroller "$NUVOLA_DATA" "$MUSIC_OUTPUT_WIDTH" "MUSIC:" "DZEN" > "$PANEL_FIFO" &
+    fi
+}
+
+
 mopidyOutput(){
 	MOPIDY_RAW="$(mpc -f '%artist% - %title% - ')"
 	MOPIDY_INFO="$(echo "$MOPIDY_RAW" | head -n 1 | iconv -f utf-8 -t us-ascii//TRANSLIT)"
@@ -141,6 +153,11 @@ mopidyOutput(){
 		#echo $PID
 	fi
 }
+
+#while [[ true ]]; do
+#    nuvolaOutput
+#    sleep 10s
+#done &
 
 while [[ true ]]; do
 	##CHECK FOR MPD SERVER

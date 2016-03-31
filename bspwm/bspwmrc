@@ -20,14 +20,14 @@ bspc config remove_disabled_monitor true
 bspc config remove_unpluged_monitor true
 bspc config merge_overlapping_monitors true
 
-bspc rule -a Gimp follow=on floating=on
-bspc rule -a mplayer2 floating=on
+bspc rule -a Gimp follow=on state=floating
+bspc rule -a mplayer2 state=floating
 bspc rule -a Kupfer.py focus=on
 bspc rule -a Screenkey manage=off
-bspc rule -a copyq floating=on
+bspc rule -a copyq state=floating
 bspc rule -a mumble desktop=^5
-bspc rule -a Friends floating=on
-bspc rule -a feh-popup floating=on
+bspc rule -a Friends state=floating
+bspc rule -a feh-popup state=floating
 
 feh --randomize --bg-fill /media/Wallpaper/*
 
