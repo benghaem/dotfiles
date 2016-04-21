@@ -62,5 +62,4 @@ $HOME/.bin/echoDisplay.sh &
 sxhkd &
 exec bspwm
 
-#exec gnome-session
 #exec startkde
