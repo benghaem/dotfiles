@@ -14,31 +14,31 @@ super + t
 super + b
 	bspc desktop -B
 
-super + {s,f,a}
-	bspc node -t {"~floating","~fullscreen","~pseudo_tiled"}
+super + {s,f,a,space}
+	bspc node -t {"~floating","~fullscreen","~pseudo_tiled","~tiled"}
 
 super + {_,shift + }v
 	bspc desktop -R {90, 180}
 
 alt + {grave,Tab}
-	bspc {node,desktop} -f last
+	bspc {desktop,node} -f last
 
 super + apostrophe
 	bspc node older -f
 
 super + {o,i}
 	bspc control --record-history off; \
-	bspc window {older,newer} -f; \
+	bspc node {older,newer} -f; \
 	bspc control --record-history on
 
 super + y
-	bspc window -w last.manual
+	bspc node -w last.manual
 
 super + m
 	bspc node -s biggest
 
 super + {_,shift + }{h,j,k,l}
-	bspc window -{f,s} {left,down,up,right}
+	bspc node -{f,s} {west,south,north,east}
 
 super + {_,shift + }c
 	bspc node -f {next,prev}
@@ -46,7 +46,7 @@ super + {_,shift + }c
 super + {comma,period}
 	bspc desktop -C {backward,forward}
 
-super + bracket{left,right}
+super + bracket{west,east}
 	bspc desktop -f {prev,next}
 
 #preselect
@@ -54,13 +54,13 @@ super + ctrl + {h,j,k,l}
 	bspc node -p {west,south,north,east}
 
 super + ctrl + {_,shift + }space
-	bspc {window -p cancel,desktop -c}
+	bspc {node -p cancel,desktop -c}
 
 super + alt + {h,j,k,l}
-	bspc window -e {left -10,down +10,down -10,left +10}
+	bspc node -e {west -10,south +10,south -10,west +10}
 
 super + alt + shift + {h,j,k,l}
-	bspc window -e {right -10,up +10,up -10,right +10}
+	bspc node -e {east -10,north +10,north -10,east +10}
 
 super + {_,shift + }{1-9,0}
 	bspc {desktop -f,node -d} ^{1-9,10}
