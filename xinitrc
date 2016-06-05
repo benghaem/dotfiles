@@ -11,10 +11,6 @@ if [ -d /etc/X11/xinit/xinitrc.d ]; then
   unset f
 fi
 
-#exec gnome-session
-# exec startkde
-# exec startxfce4
-
 #fix cursor
 xsetroot -cursor_name left_ptr
 
@@ -46,6 +42,7 @@ xrandr --output DP2 --auto --right-of eDP1
 
 #start locker
 xautolock -time 1 -locker $HOME"/.bin/autoSuspend.sh" -detectsleep &
+
 #set xautolock state
 echo 'enabled' > $HOME/.bin/xautolock.state
 

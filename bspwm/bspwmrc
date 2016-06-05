@@ -20,6 +20,8 @@ bspc config remove_disabled_monitor true
 bspc config remove_unpluged_monitor true
 bspc config merge_overlapping_monitors true
 
+bspc config click_to_focus true
+
 bspc rule -a Gimp follow=on state=floating
 bspc rule -a mplayer2 state=floating
 bspc rule -a Kupfer.py focus=on
