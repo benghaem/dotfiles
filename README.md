@@ -1,17 +1,17 @@
-#dotfiles
+# dotfiles
 
-##About
+## About
 
 This is a collection of dotfiles for use with BSPWM or any other window manager that requires the use of a dzen panel. It is my personal configuration and includes all of the features I find necessary for a full WM experience. The collection also includes a small C program at bin/panel/scroller. This program takes a string input, a prefix, and a width and will output text that gives the appearance of scrolling. This is used for the music/mpd integration aspect of the panel where long song names will be scrolled instead of truncated. 
 
-##Screenshots
+## Screenshots
 
 ![Example](/scrots/example.gif)
 ![Clean](/scrots/clean.png)
 ![Dirty](/scrots/dirty.png)
 
-##Requirements
-###General
+## Requirements
+### General
 * bspwm
 * compton
 * dmenu (with xft and height patch)
@@ -21,7 +21,7 @@ This is a collection of dotfiles for use with BSPWM or any other window manager 
 * xbindkeys
 * xrandr (Set Primary Monitor)
 
-###Panel
+### Panel
 * acpi 					 (Battery)
 * bc 				(Various Math)
 * Dejavu Sans Mono (Panel Font)
@@ -35,16 +35,16 @@ This is a collection of dotfiles for use with BSPWM or any other window manager 
 * trayer 	   (Tray Icon Display)
 * xset (Caps Lock Notification)
 
-####Optional
+#### Optional
 * amixer (Mic Mute)
 * txtw (To determine offset)
 * lxrandr (Projector/Display Keybind)
 
-###Music
+### Music
 * Mopidy or MPD (Music Server)
 * ncmpcpp (MPD Controller)
 
-###Other useful programs
+### Other useful programs
 * CopyQ (Clipboard Manager)
 * seafile (Self Hosted Cloud Storage)
 * sxlock (Screen Locker)
@@ -52,9 +52,9 @@ This is a collection of dotfiles for use with BSPWM or any other window manager 
 * xautolock (Auto Suspend System)
 * xflux (Gamma Adjustment)
 
-##Installation
+## Installation
 
-###General
+### General
 Assuming that all required programs are installed, the dotfiles can simply be moved to their respective locations followed by a restart of the X server. I use symlinks to keep my file system organized so that all of these files live within the folder `.dotfiles` in my home directory.
 
 Required symlinks are as follows:
@@ -70,32 +70,32 @@ Required symlinks are as follows:
 
 After the files are moved/symlinked please read the configuration section below
 
-###Suspend Service
+### Suspend Service
 The `suspend@example.service` should be moved to `/etc/systemd/system/`, renamed to `suspend@.service` and enabled with `systemctl enable suspend@user.service` as root (replace user with the user you would like to enable the service for). The service relies on `bin/echoDisplay.sh` to create `/tmp/DISPLAY.env` to ensure that sxlock is able to find the required display.
 
-###Mopidy
+### Mopidy
 If you are planning to use `mopidyStart.sh` to start Mopidy in online or offline modes until plugin support improves, you will need to create your own configs for these states and move them to `~/.config/mopidy/mopidy_offline.conf` and `~/.config/mopidy/mopidy_online.conf`. I recommend using the same settings and disabling any plugins that connect to the Internet in the offline version of the config file. 
 
-###GTK Themes
+### GTK Themes
 I use `numix-themes-archblue` from the AUR along with the Numix icon theme.
 
-##Configuration
+## Configuration
 
-###Panel
+### Panel
 The panel can be configured from the variable file located at `bin/panel/panel_settings` where some settings, such as `DUAL_BATT`, may need to be changed to match your system configuration. The panel and notifications are based off of a screen resolution of 1920x1080. If you do not have a screen of this size `panel_settings` and all of the `_not` files will need to be modified to support alternate sizes.
 
 Additional color configuration is available at `bin/panel/panel_colors-dzen`.
 
-###Keybinds
+### Keybinds
 Keybinds can be modified in the `xbindkeysrc` and `sxhkd/sxhkdrc` files. 
 
-###Background
+### Background
 Feh uses any file located at `~/Pictures/Wallpaper/current`.
 
-###Auto Suspend
+### Auto Suspend
 The auto suspend settings can be modified at `bin/autoSuspend.sh`.
 
 __NOTE: The fullscreen setting only works for BSPWM__
 
-###xinitrc
+### xinitrc
 My xinitrc launches a few applications you may not use. Simply remove them from the list and add your own.
